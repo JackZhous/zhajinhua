@@ -88,3 +88,6 @@ function onListening() {
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
 }
+
+const SocketServer = require("../../game/socket-server");
+SocketServer(server);
