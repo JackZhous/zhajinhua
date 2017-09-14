@@ -2,16 +2,10 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-        // foo: {
-        //    default: null,      // The default value will be used only when the component attaching
-        //                           to a node for the first time
-        //    url: cc.Texture2D,  // optional, default is typeof default
-        //    serializable: true, // optional, default is true
-        //    visible: true,      // optional, default is true
-        //    displayName: 'Foo', // optional
-        //    readonly: false,    // optional, default is false
-        // },
-        // ...
+       editbox:{
+           default: null,
+           type: cc.EditBox
+       }
     },
 
     // use this for initialization
@@ -23,4 +17,8 @@ cc.Class({
     // update: function (dt) {
 
     // },
+    buttonClick: function (event, customEvent) {
+        console.log("heheh" + customEvent);
+        console.log("editbox " + this.editbox.string);
+    },
 });

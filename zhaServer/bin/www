@@ -89,5 +89,5 @@ function onListening() {
   debug('Listening on ' + bind);
 }
 
-const SocketServer = require("../../game/socket-server");
+var SocketServer = require("../game/socket-server");
 SocketServer(server);
