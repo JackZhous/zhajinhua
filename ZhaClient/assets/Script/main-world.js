@@ -1,3 +1,5 @@
+const global = require("./global");
+
 cc.Class({
     extends: cc.Component,
 
@@ -18,7 +20,9 @@ cc.Class({
 
     // },
     buttonClick: function (event, customEvent) {
-        console.log("heheh" + customEvent);
-        console.log("editbox " + this.editbox.string);
+        var uid = this.editbox.string;
+        if(uid.length > 0){
+            global.eventlistener.fires("login",uid);
+        }
     },
 });

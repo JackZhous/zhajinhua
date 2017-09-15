@@ -1,5 +1,5 @@
-var Socket = require("socket.io");
-var Room = require("room");
+const Socket = require("socket.io");
+const Room = require("./room");
 
 
 const SocketServer = function (server) {
@@ -7,8 +7,13 @@ const SocketServer = function (server) {
     var roomList = [];
     that.on("connection", function (socket) {
         console.log("server connection");
+
         //监听登录
         socket.on("login", function (uid) {
+            if(roomList.length == 0){
+                roomList.push(Room());
+            }
+
             if(roomList[roomList.length - 1].getPlayerCount() > 6){
                 roomList.push(Room());
             }

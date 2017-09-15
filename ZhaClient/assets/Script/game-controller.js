@@ -1,28 +1,53 @@
 import global from "./global";
+const EventListener = require("event-listener");
 
 cc.Class({
     extends: cc.Component,
 
     properties: {
-        // foo: {
-        //    default: null,      // The default value will be used only when the component attaching
-        //                           to a node for the first time
-        //    url: cc.Texture2D,  // optional, default is typeof default
-        //    serializable: true, // optional, default is true
-        //    visible: true,      // optional, default is true
-        //    displayName: 'Foo', // optional
-        //    readonly: false,    // optional, default is false
-        // },
-        // ...
+       runningWorld:{
+           default: null,
+           type:cc.Prefab
+       },
+        main_world_prefab:{
+            default: null,
+            type:cc.Prefab
+        },
+        game_world_prefab:{
+            default: null,
+            type:cc.Prefab
+        }
     },
 
     // use this for initialization
     onLoad: function () {
-        global.Socket = io("localhost:3000");
+        global.socket = io("localhost:3000");
+        global.eventlistener = EventListener({});
+        global.eventlistener.on("login", function (uid) {
+            console.log("login a person " + uid);
+            global.Socket.emit("login", uid);
+        });
+
+        global.socket.on("sync_data", function (data) {
+           console.log("sync_data " + JSON.stringify(data));
+        });
     },
 
-    // called every frame, uncomment this function to activate update callback
-    // update: function (dt) {
+    enterMainWorld:function () {
+      if(this.runningWorld != undefined){
+          this.runningWorld.removeFromParent(true);
+      }
 
-    // },
+      this.runningWorld = cc.instantiate(this.main_world_prefab);
+      this.runningWorld.parent = this.node;
+    },
+    
+    enterGameWorld: function (data) {
+        if(this.runningWorld != undefined){
+            this.runningWorld.removeFromParent(true);
+        }
+
+        this.runningWorld = cc.instantiate(this.game_world_prefab);
+        this.runningWorld.parent = this.node;
+    }
 });
