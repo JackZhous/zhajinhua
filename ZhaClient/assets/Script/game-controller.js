@@ -5,10 +5,6 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-       runningWorld:{
-           default: null,
-           type:cc.Prefab
-       },
         main_world_prefab:{
             default: null,
             type:cc.Prefab
@@ -25,12 +21,14 @@ cc.Class({
         global.eventlistener = EventListener({});
         global.eventlistener.on("login", function (uid) {
             console.log("login a person " + uid);
-            global.Socket.emit("login", uid);
+            global.socket.emit("login", uid);
         });
 
         global.socket.on("sync_data", function (data) {
            console.log("sync_data " + JSON.stringify(data));
+            this.enterGameWorld(data);
         });
+        this.enterMainWorld();
     },
 
     enterMainWorld:function () {
@@ -49,5 +47,5 @@ cc.Class({
 
         this.runningWorld = cc.instantiate(this.game_world_prefab);
         this.runningWorld.parent = this.node;
-    }
+    },
 });

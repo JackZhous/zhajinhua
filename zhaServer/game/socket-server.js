@@ -13,7 +13,6 @@ const SocketServer = function (server) {
             if(roomList.length == 0){
                 roomList.push(Room());
             }
-
             if(roomList[roomList.length - 1].getPlayerCount() > 6){
                 roomList.push(Room());
             }
@@ -23,6 +22,6 @@ const SocketServer = function (server) {
 
     });
     return that;
-}
+};
 
 module.exports = SocketServer;

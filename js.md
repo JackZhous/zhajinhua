@@ -27,15 +27,18 @@ npm start			//启动当前路径下的服务
 
 1. 服务端调用Socket模块，初始化Socket并监听端口
 ```javascript
+global.Socket = io("localhost:3000");			//调用Socket模块io方法连接
 var server = http.createServer(app);			//server来自于bin下的www文件
 var that = Socket(server);
-    that.on("connection", function () {			//有连接时触发回调
+    that.on("connection", function (socket) {			//有连接时触发回调
         console.log("server connection");
+	socket.on("login", function(username)){
+			//登录接口，实现登录逻辑	
+	};
     });
 ```
 
-2. 客户端调用Socket模块，向服务器某端口发起连接
-
+2. 客户端发起请求
 ```javascript
- global.Socket = io("localhost:3000");			//调用Socket模块io方法连接
+Socket.emit("login", uid);		//调用Socket模块emit方法发起请求即可
 ```
