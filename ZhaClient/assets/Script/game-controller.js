@@ -19,12 +19,12 @@ cc.Class({
     onLoad: function () {
         global.socket = io("localhost:3000");
         global.eventlistener = EventListener({});
-        global.eventlistener.on("login", function (uid) {
+        global.eventlistener.on("login",  (uid) => {
             console.log("login a person " + uid);
             global.socket.emit("login", uid);
         });
 
-        global.socket.on("sync_data", function (data) {
+        global.socket.on("sync_data",  (data) => {
            console.log("sync_data " + JSON.stringify(data));
             this.enterGameWorld(data);
         });
@@ -42,10 +42,13 @@ cc.Class({
     
     enterGameWorld: function (data) {
         if(this.runningWorld != undefined){
-            this.runningWorld.removeFromParent(true);
+            console.log("enterGameWorld skdhfskfh");
+            this.runningWorld.destroy();
         }
-
+        console.log("enterGameWorld " + JSON.stringify(data));
         this.runningWorld = cc.instantiate(this.game_world_prefab);
         this.runningWorld.parent = this.node;
+
+        global.eventlistener.fires("sync_data", data);
     },
 });

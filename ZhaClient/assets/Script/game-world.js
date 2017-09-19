@@ -22,12 +22,12 @@ cc.Class({
     // use this for initialization
     onLoad: function () {
         global.eventlistener = EventListener({});
-        global.eventlistener.on("sync_data", function (data) {
+        global.eventlistener.on("sync_data",  (data) => {
             console.log("game world sync " + JSON.stringify(data));
             global.playerData.uid = data.uid;
             var index = 0;
-            this.createPlayer(data.uid, index);
-        })
+           // this.createPlayer(data.uid, index);
+        });
     },
 
     //uid和座位号index
