@@ -28,6 +28,11 @@ cc.Class({
            console.log("sync_data " + JSON.stringify(data));
             this.enterGameWorld(data);
         });
+
+        //创建玩家
+        global.socket.on("player_join", (data) => {
+           global.eventlistener.fires("player_join", data);
+        });
         this.enterMainWorld();
     },
 

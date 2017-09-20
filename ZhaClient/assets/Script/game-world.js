@@ -21,12 +21,19 @@ cc.Class({
 
     // use this for initialization
     onLoad: function () {
+        var _index;
         global.eventlistener = EventListener({});
         global.eventlistener.on("sync_data",  (data) => {
             console.log("game world sync " + JSON.stringify(data));
             global.playerData.uid = data.uid;
-            var index = 0;
-           // this.createPlayer(data.uid, index);
+            _index = data.index;
+            this.createPlayer(data.uid, 0);
+        });
+
+        global.eventlistener.on("player_join", (data) =>{
+           console.log("player join" + JSON.stringify(data));
+           var seat_index = data.index - _index;
+           this.createPlayer(data.uid, seat_index);
         });
     },
 
