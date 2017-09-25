@@ -39,10 +39,10 @@ cc.Class({
 
     //uid和座位号index
    createPlayer:function (uid, index) {
-        var plaer = cc.instantate(this.player_node_prefab);
+        var plaer = cc.instantiate(this.player_node_prefab);
         plaer.parent = this.node;
         plaer.getComponent("player-node").init(uid);
-        plaer.position = this.player_node_prefab[index].position;
+        plaer.position = this.player_pos_list[index].position;
    }
 
 
