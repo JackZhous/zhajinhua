@@ -739,7 +739,9 @@
       "__id__": 1
     },
     "_enabled": true,
-    "player_node_prefab": null,
+    "player_node_prefab": {
+      "__uuid__": "54879c00-5303-442a-9aba-8ef731e36a21"
+    },
     "player_pos_list": [
       {
         "__id__": 5
