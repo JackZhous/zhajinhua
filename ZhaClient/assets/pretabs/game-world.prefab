@@ -41,10 +41,13 @@
     "_components": [
       {
         "__id__": 23
+      },
+      {
+        "__id__": 24
       }
     ],
     "_prefab": {
-      "__id__": 24
+      "__id__": 25
     },
     "_id": "",
     "_opacity": 255,
@@ -733,6 +736,38 @@
   },
   {
     "__type__": "6d3d6HJeI9JG6CTArz4MCyf",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 1
+    },
+    "_enabled": true,
+    "player_node_prefab": {
+      "__uuid__": "54879c00-5303-442a-9aba-8ef731e36a21"
+    },
+    "player_pos_list": [
+      {
+        "__id__": 5
+      },
+      {
+        "__id__": 8
+      },
+      {
+        "__id__": 11
+      },
+      {
+        "__id__": 14
+      },
+      {
+        "__id__": 17
+      },
+      {
+        "__id__": 20
+      }
+    ]
+  },
+  {
+    "__type__": "97abaZHYklMIK9tWHT9gaW6",
     "_name": "",
     "_objFlags": 0,
     "node": {

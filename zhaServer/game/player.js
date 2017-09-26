@@ -15,8 +15,12 @@ const Player = function (uid, socket, event) {
 
   const sendCreatePlayerMsg = function (data) {
     console.log("send create player msg" + JSON.stringify(data));
+    if(data.uid != _uid){
+        socket.emit("player_join", data);
+    }
   };
 
+  //多个player都调用这个方法则都在event都会保存多个注册者
   _event.on("sendPlayerMessage", sendCreatePlayerMsg);
 
   that.destroy = function () {
