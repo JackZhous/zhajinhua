@@ -26,7 +26,7 @@ cc.Class({
             console.log("game world sync " + JSON.stringify(data));
             global.playerData.uid = data.uid;
             var index = 0;
-           // this.createPlayer(data.uid, index);
+            this.createPlayer(data.uid, index);
         });
     },
 
