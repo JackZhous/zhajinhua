@@ -7,7 +7,7 @@ const  Room = function () {
     var _event = EventListener({});
 
     that.getPlayerCount = function () {
-        return _playerList.length;
+        return _playerList.length + 1;
     };
 
     that.createPlayer = function (uid, socket) {
