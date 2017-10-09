@@ -9,8 +9,18 @@ const Player = function (uid, socket, event) {
      * @param data
      */
   that.sendSyncData = function (data) {
-    console.log(("syncData " + JSON.stringify(data)));
+    console.log("syncData " + JSON.stringify(data));
     socket.emit("sync_data", data);
+    var length = data.playerList.length - 1;
+
+    for(let i = 0; i < length; i++){
+
+      sendCreatePlayerMsg({uid:data.playerList[i].getUid(), index:i});
+    }
+  };
+
+  that.getUid = function () {
+    return _uid;
   };
 
   const sendCreatePlayerMsg = function (data) {

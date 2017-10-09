@@ -13,9 +13,11 @@ const  Room = function () {
     that.createPlayer = function (uid, socket) {
         var plater = Player(uid, socket, _event);
         _playerList.push(plater);
-        plater.sendSyncData({uid:uid, index: _playerList.length - 1, playerList: _playerList});
+        plater.sendSyncData({uid:uid, index: _playerList.length - 1, playerList:_playerList});
 
         _event.fire("sendPlayerMessage", {uid:uid, index:_playerList.length - 1});
+
+
     };
     return that;
 };
