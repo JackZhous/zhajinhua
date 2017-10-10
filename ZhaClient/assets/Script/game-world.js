@@ -21,23 +21,36 @@ cc.Class({
 
     // use this for initialization
     onLoad: function () {
-        var _index;
+        this._index = 0;
+        this._playerList = [];
         global.eventlistener = EventListener({});
         global.eventlistener.on("sync_data",  (data) => {
             console.log("game world sync " + JSON.stringify(data));
             global.playerData.uid = data.uid;
-            _index = data.index;
+            this._index = data.index;
             this.createPlayer(data.uid, 0);
         });
 
         global.eventlistener.on("player_join", (data) =>{
            console.log("player join" + JSON.stringify(data));
-           var seat_index = data.index - _index;
+           var seat_index = data.index - this._index;
            //比当前用户早加入进房间的，位置要在本用户前面
            if (seat_index < 0){
                seat_index = 6 + seat_index;
            }
            this.createPlayer(data.uid, seat_index);
+        });
+
+        global.eventlistener.on("player_offline", (uid) => {
+            for(let i = 0; i < this._playerList.length; i++){
+                var node = this._playerList[i];
+                if(node.getComponent("player-node").getUid() == uid){
+                    node.removeFromParent(true);
+                    node.destroy();
+                    this._playerList.splice(i, 1);
+                    return;
+                }
+            }
         });
     },
 
@@ -47,7 +60,6 @@ cc.Class({
         plaer.parent = this.node;
         plaer.getComponent("player-node").init(uid);
         plaer.position = this.player_pos_list[index].position;
-   }
-
-
+        this._playerList.push(plaer);
+   },
 });

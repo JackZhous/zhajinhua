@@ -3,6 +3,7 @@ const Player = function (uid, socket, event) {
   var _uid = uid;
   var _socket = socket;
   var _event = event;
+  var _roomIndex = 0;
 
 
   //监听玩家掉线
@@ -15,12 +16,14 @@ const Player = function (uid, socket, event) {
      * @param data
      */
   that.sendSyncData = function (data) {
-    console.log("syncData " + JSON.stringify(data));
+    _roomIndex = data.index;
     _socket.emit("sync_data", data);
+      console.log("sync_data" + JSON.stringify(data));
     var length = data.playerList.length - 1;
 
     for(let i = 0; i < length; i++){
-      sendCreatePlayerMsg({uid:data.playerList[i].getUid(), index:i});
+      var node = data.playerList[i];
+      sendCreatePlayerMsg({uid:node.getUid(), index:node.getIndex()});
     }
   };
 
@@ -28,16 +31,21 @@ const Player = function (uid, socket, event) {
     return _uid;
   };
 
+  that.getIndex = function () {
+    return _roomIndex;
+  };
+
   //玩家加入消息
   const sendCreatePlayerMsg = function (data) {
-    console.log("send create player msg" + JSON.stringify(data));
     if(data.uid != _uid){
+        console.log("send create player msg" + JSON.stringify(data));
         socket.emit("player_join", data);
     }
   };
 
   //玩家下线消息
   const sendOfflinePlayerMsg = function (uid) {
+      console.log("player_offline" + uid);
       _socket.emit("player_offline", uid);
   };
 
@@ -46,6 +54,7 @@ const Player = function (uid, socket, event) {
   _event.on("sendOfflinePlayerMsg", sendOfflinePlayerMsg);
 
   that.destroy = function () {
+    console.log("destroy");
     _event.off("sendOfflinePlayerMsg", sendOfflinePlayerMsg)
     _event.off("sendPlayerMessage", sendCreatePlayerMsg);
   };

@@ -24,5 +24,10 @@ cc.Class({
 
     init: function (uid) {
         this.uid_label.string = uid + "";
+    },
+
+    getUid: function () {
+        return this.uid_label.string;
     }
+
 });

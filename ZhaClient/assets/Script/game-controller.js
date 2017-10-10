@@ -24,14 +24,20 @@ cc.Class({
             global.socket.emit("login", uid);
         });
 
+        //玩家登录后同步信息
         global.socket.on("sync_data",  (data) => {
            console.log("sync_data " + JSON.stringify(data));
             this.enterGameWorld(data);
         });
 
-        //创建玩家
+        //玩家加入房间
         global.socket.on("player_join", (data) => {
            global.eventlistener.fires("player_join", data);
+        });
+
+        //玩家掉线通知消息
+        global.socket.on("player_offline", (uid) => {
+           global.eventlistener.fires("player_offline", uid);
         });
         this.enterMainWorld();
     },
