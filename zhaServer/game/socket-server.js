@@ -12,9 +12,6 @@ const SocketServer = function (server) {
 
         //监听登录
         socket.on("login", function (uid) {
-            if(roomList.length == 0){
-                roomList.push(Room(getRoomId(), _event));
-            }
 
             //变量所有的房间，自动添加玩家进入房间
             for (let i = 0; i < roomList.length; i++){
@@ -47,6 +44,8 @@ const SocketServer = function (server) {
         return ""+Datee.getMilliseconds();
     };
 
+    var firstRoom = Room(getRoomId(), _event);
+    roomList.push(firstRoom);
 
     return that;
 };
